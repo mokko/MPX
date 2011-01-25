@@ -423,7 +423,7 @@
 				<xsd:element ref="geogrBezug" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="handling" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="identNr" minOccurs="0" maxOccurs="unbounded"/>
-				<xsd:element ref="ikonographischeBeschreibung" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ikonographischeBeschreibung " minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="ikonographischeKurzbeschreibung" minOccurs="0"
 					maxOccurs="unbounded"/>
 				<xsd:element ref="inhalt" minOccurs="0" maxOccurs="unbounded"/>

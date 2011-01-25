@@ -2,3 +2,14 @@ MPX - MuseumPlusXML, an XML format that represents data from MuseumPlus
 
 I release it as a separate project on github, to have a specific issue cue etc.
 
+The schema should be accessible via:
+ https://github.com/mokko/MPX/raw/master/latest/mpx.xsd
+
+now.
+
+This should always be the latest version. 
+
+There should be different links for different version, the main directory.
+
+
+
