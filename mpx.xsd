@@ -104,7 +104,7 @@
 				eindeutigen Index für jeden Datensatz in M+. Das Attribut "freigabe" ist insofern artifiziell 
 				als das es nicht in M+ enthalten ist.  @freigabe beschreibt den
 				Freigabestatus für den Multimedia-Datensatz. Mögliche Werte sind "Web" für
-				allgemeine Freigabe für Webplattformen. "private" für Datensätze, die nicht
+				allgemeine Freigabe für Webplattformen. "privat" für Datensätze, die nicht
 				freigegeben sind fürs Web. Das Attribut "sort" ist ein Integer und beschreibt
 				das wichtigste Medium und sortiert bei Bedarf weitere Medien nach einer Reihenfolge,
 				wobei 0 immer das bezugte Medium ist. Wenn nichts angegeben ist, dann kann sind alle
@@ -133,7 +133,7 @@
 			<xsd:attribute name="exportdatum" type="xsd:dateTime"/>
 			<xsd:attribute name="mulId" type="xsd:integer"/>
 			<xsd:attribute name="freigabe" type="xsd:string"/>
-			<xsd:attribute name="sort" type="xsd:integer"/>
+			<xsd:attribute name="priorität" type="xsd:integer"/>
 
 		</xsd:complexType>
 	</xsd:element>
@@ -423,7 +423,7 @@
 				<xsd:element ref="geogrBezug" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="handling" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="identNr" minOccurs="0" maxOccurs="unbounded"/>
-				<xsd:element ref="ikonographischeBeschreibung" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ikonographischeBeschreibung " minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="ikonographischeKurzbeschreibung" minOccurs="0"
 					maxOccurs="unbounded"/>
 				<xsd:element ref="inhalt" minOccurs="0" maxOccurs="unbounded"/>
@@ -1033,9 +1033,8 @@
 				<xsd:enumeration value="EM-Neuerwerbung"/>
 				<xsd:enumeration value="EM-Süd- und Südostasien"/>
 				<xsd:enumeration value="EM-Südsee/Australien"/>
-
+				<xsd:enumeration value="EM-Musterdatensätze Sammlung"/>
 				<xsd:enumeration value="SPK-Personen/Körperschaften"/>
-
 			</xsd:restriction>
 		</xsd:simpleType>
 	</xsd:element>
