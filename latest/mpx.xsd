@@ -4,6 +4,9 @@
 	xmlns="http://www.mpx.org/mpx" elementFormDefault="unqualified">
 
 	<!--
+		2011-05-20
+		Order changed to sort alphabetically in xslt 1. @sort heisst jetzt priorität. Kleinste Integer ist höchste 
+		Priorität
 		2010-06-21
 		@freigabe und @sort sind jetzt deutsche Bezeichnungen. Im Augenblick nur bei multimediaobjekt. In Zukunft 
 		vielleicht auch bei sammlungsobjekt und perKor.
@@ -423,7 +426,7 @@
 				<xsd:element ref="geogrBezug" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="handling" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="identNr" minOccurs="0" maxOccurs="unbounded"/>
-				<xsd:element ref="ikonographischeBeschreibung " minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ikonographischeBeschreibung" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="ikonographischeKurzbeschreibung" minOccurs="0"
 					maxOccurs="unbounded"/>
 				<xsd:element ref="inhalt" minOccurs="0" maxOccurs="unbounded"/>
