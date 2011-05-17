@@ -408,8 +408,8 @@
 				<xsd:element ref="erwerbDatum" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="erwerbNotiz" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="erwerbNr" minOccurs="0" maxOccurs="unbounded"/>
-				<xsd:element ref="erwerbungsart" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="erwerbungVon" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="erwerbungsart" minOccurs="0" maxOccurs="unbounded"/>
 				<!-- farbe (Film)-->
 				<xsd:element ref="farbe" minOccurs="0" maxOccurs="unbounded"/>
 				<!-- filmtyp (Film) -->
@@ -439,16 +439,16 @@
 				<xsd:element ref="kurzeBeschreibung" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="langeBeschreibung" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="leihgeber" minOccurs="0" maxOccurs="unbounded"/>
-				<xsd:element ref="maßangabe" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="materialTechnik" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="maßangabe" minOccurs="0" maxOccurs="unbounded"/>
 				<!--  xsd:element ref="multimedia" minOccurs="0"
 					maxOccurs="unbounded" / -->
 				<xsd:element ref="musikgattung" minOccurs="0" maxOccurs="1"/>
 				<!-- nadelschliff (Audio) -->
 				<xsd:element ref="nadelschliff" minOccurs="0" maxOccurs="1"/>
 				<!-- objektiv (Foto?) -->
-				<xsd:element ref="objekttyp" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="objStatus" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="objekttyp" minOccurs="0" maxOccurs="unbounded"/>
 				<!-- oov (Objekt-Objekt-Beziehungen, neu)-->
 				<xsd:element ref="oov" minOccurs="0" maxOccurs="unbounded"/>
 				<!-- personKörperschaft (doppelter Singualar) statt personenKörperschaften -->
@@ -1033,7 +1033,7 @@
 				<xsd:enumeration value="EM-Neuerwerbung"/>
 				<xsd:enumeration value="EM-Süd- und Südostasien"/>
 				<xsd:enumeration value="EM-Südsee/Australien"/>
-				<xsd:enumeration value="EM-Musterdatensätze Sammlung"/>
+				<xsd:enumeration value="Musterdatensätze Sammlung"/>
 				<xsd:enumeration value="SPK-Personen/Körperschaften"/>
 			</xsd:restriction>
 		</xsd:simpleType>
