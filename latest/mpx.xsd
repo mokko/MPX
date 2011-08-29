@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mpx.org/mpx"
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mpx.org/mpx"
 	xmlns="http://www.mpx.org/mpx" elementFormDefault="unqualified">
 
 	<!--
@@ -130,6 +131,7 @@
 				<xsd:element ref="multimediaPfadangabe" minOccurs="0" maxOccurs="1"/>
 				<xsd:element ref="multimediaTyp" minOccurs="0" maxOccurs="1"/>
 				<xsd:element ref="multimediaUrhebFotograf" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="standardbild" minOccurs="0" maxOccurs="1"/>
 				<xsd:element ref="verknüpftesObjekt" minOccurs="0" maxOccurs="1"/>
 			</xsd:sequence>
 			<!-- xsd:attribute name="mulId" type="xsd:integer" />  -->
@@ -356,6 +358,15 @@
 		</xsd:annotation>
 	</xsd:element>
 
+	<xsd:element name="standardbild" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation> Wenn dieses Element vorhanden, dann ist das entsprechende 
+				multimediaobjekt das Standardbild für dieses sammlungsobjekt. 
+				Standardbild kann den Pfad zum Bild enthalten, muss aber nicht.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
 	<xsd:element name="verknüpftesObjekt" type="xsd:string">
 		<xsd:annotation>
 			<xsd:documentation> Ein (!) mit dieser Person verknüpftes Objekt aus den Sammlungen
@@ -411,8 +422,8 @@
 				<xsd:element ref="erwerbDatum" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="erwerbNotiz" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="erwerbNr" minOccurs="0" maxOccurs="unbounded"/>
-				<xsd:element ref="erwerbungVon" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="erwerbungsart" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="erwerbungVon" minOccurs="0" maxOccurs="unbounded"/>
 				<!-- farbe (Film)-->
 				<xsd:element ref="farbe" minOccurs="0" maxOccurs="unbounded"/>
 				<!-- filmtyp (Film) -->
@@ -442,16 +453,16 @@
 				<xsd:element ref="kurzeBeschreibung" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="langeBeschreibung" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="leihgeber" minOccurs="0" maxOccurs="unbounded"/>
-				<xsd:element ref="materialTechnik" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="maßangabe" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="materialTechnik" minOccurs="0" maxOccurs="unbounded"/>
 				<!--  xsd:element ref="multimedia" minOccurs="0"
 					maxOccurs="unbounded" / -->
 				<xsd:element ref="musikgattung" minOccurs="0" maxOccurs="1"/>
 				<!-- nadelschliff (Audio) -->
 				<xsd:element ref="nadelschliff" minOccurs="0" maxOccurs="1"/>
 				<!-- objektiv (Foto?) -->
-				<xsd:element ref="objStatus" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="objekttyp" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="objStatus" minOccurs="0" maxOccurs="unbounded"/>
 				<!-- oov (Objekt-Objekt-Beziehungen, neu)-->
 				<xsd:element ref="oov" minOccurs="0" maxOccurs="unbounded"/>
 				<!-- personKörperschaft (doppelter Singualar) statt personenKörperschaften -->
