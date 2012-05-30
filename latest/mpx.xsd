@@ -5,6 +5,10 @@
 	xmlns="http://www.mpx.org/mpx" elementFormDefault="unqualified">
 
 	<!--
+        2012-05-30
+        added /multimediaobjekt/@typ
+		2011-08-29
+		standardbild added. Order changed to 
 		2011-05-20
 		Order changed to sort alphabetically in xslt 1. @sort heisst jetzt priorität. Kleinste Integer ist höchste 
 		Priorität
@@ -81,6 +85,8 @@
 		ethnoArc exportiert habe und dann schauen, ob noch weitere Felder fehlen.
 		version 0.4: 2007-04-30: m+XML.lvl2 after Christina's work
 
+        multimediaobjekt/@typ == /Bild|Video|Audio/
+
 	-->
 
 	<!-- MuseumPlusXML (mpx) - lvl2 - DISMARC subset -v3-->
@@ -134,8 +140,9 @@
 				<xsd:element ref="standardbild" minOccurs="0" maxOccurs="1"/>
 				<xsd:element ref="verknüpftesObjekt" minOccurs="0" maxOccurs="1"/>
 			</xsd:sequence>
-			<!-- xsd:attribute name="mulId" type="xsd:integer" />  -->
-			<xsd:attribute name="exportdatum" type="xsd:dateTime"/>
+			<!-- xsd:attribute name="mulId" type="xsd:integer" />  -->   
+            <xsd:attribute name="typ" type="xsd:string"/>
+  		    <xsd:attribute name="exportdatum" type="xsd:dateTime"/>
 			<xsd:attribute name="mulId" type="xsd:integer"/>
 			<xsd:attribute name="freigabe" type="xsd:string"/>
 			<xsd:attribute name="priorität" type="xsd:integer"/>
