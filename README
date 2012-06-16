@@ -1,15 +1,18 @@
-MPX - MuseumPlusXML, an XML format that represents data from MuseumPlus
-
-I release it as a separate project on github, to have a specific issue cue etc.
-
-The schema should be accessible via:
- https://github.com/mokko/MPX/raw/master/latest/mpx.xsd
-
-now.
-
-This should always be the latest version. 
-
-There should be different links for different version, the main directory.
+What?
+-----
+MPX stands for MuseumPlusXML, my XML format that represents data from MuseumPlus. Essentially this project is a schema file. The latest version of the xsd is now at "xsd/mpx.xsd".
 
 
+T3: Tools, Transformations and Tests
+------------------------------------
+I am currently adding some related tools, transformations and tests (in perl 
+and xsl).
 
+
+Overlap with my other projects
+------------------------------
+Note: This project updates some stuff from various of my other projects (levelup, SalsaOAI etc.). I don't gurantee that I remove the old versions in those projects so there might be some overlap. Stuff in this project should be most current.
+
+BRANCHES
+--------
+Development is now in devel. Public facing version should soon appear in Master at github.
