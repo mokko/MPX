@@ -1,0 +1,78 @@
+#!/usr/bin/perl
+# PODNAME: mpx
+# ABSTRACT: execute mpx commands from command line
+
+use strict;
+use warnings;
+use MPX::Tools;
+use MPX::Commands;
+use MPX::CLI qw (error say);
+use Pod::Usage;
+
+=head1 SYNOPSIS
+
+	mpx $command -options params1 param2 ...
+
+	mpx stat input.mpx
+	mpx fix input.mpx
+	mpx val input.mpx 
+	mpx transform stat input.mpx
+
+=head2 Commands
+
+=over1 
+
+=item mpx stat [-vV] 
+
+prints simple statistics on mpx files (how many records of which kind) to 
+STDOUT.
+
+=item mpx fix [-vV] input.mpx
+
+apply mpxFix.xsl on mpx file and sames result in new file (input.fix.mpx).
+
+=item mpx val [-v] input.mpx
+
+validates input.mpx against mpx.xsd. Prints error messages (if any) to STDOUT.
+
+=item mpx transform [-lvV] xslFile input.mpx
+
+xslFile has to be in mpx's module dir. Use -l to list contents of this 
+directory. Prints results to STDOUT.
+
+=back
+
+=head2 Params
+
+=over1 
+
+=item -h help text (same as 'perldoc mpx')
+
+=item -l list module's xsl directory
+
+=item -v verbose 
+
+=item -V don't validate
+
+=back
+
+=head1 DESCRIPTION
+
+	This is just a command line front end to the commands as defined in
+	MPX::Commands.
+
+=cut
+
+my $command = shift @ARGV or error "MPX command missing!";
+my $packaged = "MPX::Commands::$command";
+
+no strict 'refs';
+if ( defined &$packaged && !grep ( /$command/, @MPX::Commands::imports ) ) {
+	my $bool = &$packaged(@ARGV) || 0;
+	exit $bool;                          #shell thinks that 0 is success, right?
+}
+pod2usage(
+	message => "Error: Command '$command' not recognized!\n",
+	verbose => 1
+);
+exit 1;                                  #shell exit code for failure

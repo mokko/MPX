@@ -2,3 +2,5 @@ ALT
 #*
 *~
 .project
+*.stackdump
+xml/*

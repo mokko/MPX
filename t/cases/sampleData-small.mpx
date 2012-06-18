@@ -11,7 +11,6 @@
       <multimediaPfadangabe>M:\MuseumPlus\Produktiv\Multimedia\EM\Musikethnologie\Karteikarten\Instrumente\01-
    I Asien
   </multimediaPfadangabe>
-      <verknüpftesObjekt>255072</verknüpftesObjekt>
    </multimediaobjekt>
    <multimediaobjekt exportdatum="2011-02-15T10:03:46" typ="Bild" mulId="3184205" freigabe="intern">
       <bearbDatum>17.01.2011</bearbDatum>
@@ -36,7 +35,7 @@
   </multimediaPfadangabe>
       <multimediaTyp>Digitale Aufnahme</multimediaTyp>
       <multimediaUrhebFotograf>Verena Höhn</multimediaUrhebFotograf>
-      <verknüpftesObjekt>255072</verknüpftesObjekt>
+      <verknüpftesObjekt>255072123</verknüpftesObjekt>
    </multimediaobjekt>
    <multimediaobjekt quelle="mpx-rif" exportdatum="2011-08-31T10:15:10" typ="Audio"
                      mulId="2550721316031"
