@@ -88,7 +88,8 @@ sub transform {
 	verbose 'transformation applied';
 
 	val( 'output', $tb, $output );
-	print $output->toString(); #i didn't load libXML, kinda risky
+	print $output->toString(1); #i didn't load libXML, kinda wrong
+	#not sure about toString format
 }
 
 =func stat $mpxFile;
