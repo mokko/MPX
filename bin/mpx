@@ -20,9 +20,9 @@ use Pod::Usage;
 
 =head2 Commands
 
-=over1 
+=over 1 
 
-=item mpx stat [-vV] 
+=item mpx stat [-vV] input.mpx
 
 prints simple statistics on mpx files (how many records of which kind) to 
 STDOUT.
@@ -44,7 +44,7 @@ directory. Prints results to STDOUT.
 
 =head2 Params
 
-=over1 
+=over 1 
 
 =item -h help text (same as 'perldoc mpx')
 
@@ -63,16 +63,23 @@ directory. Prints results to STDOUT.
 
 =cut
 
+if ( ( grep ( /^-h|^--help/, @ARGV ) ) > 0 ) {
+	pod2usage( verbose => 1 );
+	exit 1;    #shell exit code for failure
+}
+
 my $command = shift @ARGV or error "MPX command missing!";
 my $packaged = "MPX::Commands::$command";
 
 no strict 'refs';
 if ( defined &$packaged && !grep ( /$command/, @MPX::Commands::imports ) ) {
 	my $bool = &$packaged(@ARGV) || 0;
-	exit $bool;                          #shell thinks that 0 is success, right?
+	exit $bool;    #shell thinks that 0 is success, right?
 }
-pod2usage(
-	message => "Error: Command '$command' not recognized!\n",
-	verbose => 1
-);
-exit 1;                                  #shell exit code for failure
+else {
+	pod2usage(
+		message => "Error: Command '$command' not recognized!\n",
+		verbose => 1
+	);
+}
+
