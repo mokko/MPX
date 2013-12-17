@@ -1,12 +1,12 @@
+#ABSTRACT: Commands 
 package MPX::Commands;
 
 use strict;
 use warnings;
 use Carp qw(carp croak);
 use Getopt::Std;
-our @imports=qw(error usage verbose loadMPX newToolbox say getParam getParamFile val);
 our %opts;
-use MPX::CLI @imports;
+use MPX::CLI qw/error usage verbose loadMPX newToolbox say getParam getParamFile val/;
 #use Data::Dumper qw(Dumper);
 
 =func fix ($mpxFile);

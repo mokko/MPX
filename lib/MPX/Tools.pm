@@ -209,12 +209,14 @@ sub _modDir {
 	my $self = shift or croak "Need myself!";
 	my $modDir = __FILE__;
 	$modDir =~ s,\.pm$,,;
-	$modDir = realpath( File::Spec->catfile( $modDir, '..', '..', '..' ) );
+	#$modDir = realpath( File::Spec->catfile( $modDir, '..', '..', '..' ) );
 
 	if ( !-d $modDir ) {
 		$self->_setError("modDir does not exist! ($modDir)");
 		return;
 	}
+
+	print "modDir:$modDir\n";
 
 	while (@_) {
 		$modDir = File::Spec->catfile( $modDir, shift );

@@ -4,3 +4,6 @@ ALT
 .project
 *.stackdump
 xml/*
+MPX-*
+.build/*t/cases
+.build
