@@ -5,6 +5,7 @@ use warnings;
 
 package MPX::Tools;
 
+#use File::ShareDir ':ALL'; #todo
 use Moose;
 use namespace::autoclean;
 use Carp qw(croak carp confess);
@@ -12,8 +13,11 @@ use Params::Util qw (_INSTANCE _STRING);
 use XML::LiBXML;
 use XML::LibXSLT;
 use XML::LibXML::XPathContext;
-use File::Spec;
-use Cwd qw(realpath);
+
+#use File::Spec;
+use Path::Class;
+
+#use Cwd qw(realpath);
 has 'error' => ( is => 'ro', isa => 'Str', writer => '_setError', );
 has 'mpxXsd' => ( is => 'ro', isa => 'Str' );
 has 'fixXsl' => ( is => 'ro', isa => 'Str' );
@@ -70,7 +74,7 @@ sub transform {
 		return;
 	}
 
-	my $result     = $stylesheet->transform($dom);
+	my $result = $stylesheet->transform($dom);
 
 	if ( !$result ) {
 		$self->_setError('result  doesn\'t exist');
@@ -118,7 +122,11 @@ sub validateMPX {
 		return;
 	}
 
-	my $mpxXsd = $self->_modDir( 'xsd', 'mpx.xsd' );
+	my $mpxXsd = $self->_modDir( 'share', 'mpx.xsd' );
+	if ( $self->error ) {
+		die $self->error;
+	}
+
 	my $xmlschema = XML::LibXML::Schema->new( location => $mpxXsd );
 
 	eval { $xmlschema->validate($dom); };
@@ -140,7 +148,7 @@ For use in 'transf.pl -l'.
 =cut
 
 sub xslList {
-	my $self = shift or croak "Need myself!";
+	my $self   = shift or croak "Need myself!";
 	my $xslDir = $self->_modDir('xsl');
 
 	if ( !-d $xslDir ) {
@@ -149,8 +157,9 @@ sub xslList {
 	}
 
 	#don't list subdirectories, links and dotfiles
-	opendir my($dh), $xslDir or croak "Couldn't open dir '$xslDir': $!";
-	my @files = grep { !/^\./&& -f File::Spec->catfile ($xslDir, $_) } readdir($dh);
+	opendir my ($dh), $xslDir or croak "Couldn't open dir '$xslDir': $!";
+	my @files =
+	  grep { !/^\./ && -f File::Spec->catfile( $xslDir, $_ ) } readdir($dh);
 	closedir $dh;
 
 	return @files;
@@ -171,7 +180,7 @@ leave it in for the moment.
 =cut
 
 sub _loadXSL {
-	my $self = shift or croak "Need myself!";
+	my $self  = shift or croak "Need myself!";
 	my $xslFN = _STRING(shift);
 
 	if ( !$xslFN ) {
@@ -179,14 +188,13 @@ sub _loadXSL {
 		return;
 	}
 
-	$xslFN = $self->_modDir( 'xsl', $xslFN );
+	$xslFN = $self->_modDir( 'share', $xslFN ) || die "No xsl file";
 
 	if ( !-f $xslFN ) {
 		$self->_setError("xsl not found at $xslFN");
 		return;
 	}
 
-	
 	my $styleDoc = XML::LibXML->load_xml( location => $xslFN );
 
 	if ( !$styleDoc ) {
@@ -205,24 +213,47 @@ sub _loadXSL {
 	return $stylesheet;
 }
 
+=method my $modDir=$self->_modDir || die self->error;  
+
+returns absolute path of module's directory or error. 
+	
+If you specify a relative path inside the module dir, _modDir returns that 
+path: 
+
+	$self->_modDir('A','B.xml')
+
+You can specify as many subdirectories as you want.
+	
+_modDir should work in your local build directory or when perl module is 
+installed. If that is also possible with File::ShareDir I don't know how.
+
+On failure, _modDir sets error and returns nothing.
+
+=cut
+
 sub _modDir {
-	my $self = shift or croak "Need myself!";
-	my $modDir = __FILE__;
-	$modDir =~ s,\.pm$,,;
-	#$modDir = realpath( File::Spec->catfile( $modDir, '..', '..', '..' ) );
+	my $self   = shift or croak "Need myself!";
+	my $modDir = file(__FILE__)->parent->parent->parent;
+
+	if ( !$modDir ) {
+		#very unlikely, but conceivable
+		$self->_setError('NO modDir!');
+		return;
+	}
 
 	if ( !-d $modDir ) {
 		$self->_setError("modDir does not exist! ($modDir)");
 		return;
 	}
 
-	print "modDir:$modDir\n";
+	if (@_) {
+		$modDir = file( $modDir, @_ );
 
-	while (@_) {
-		$modDir = File::Spec->catfile( $modDir, shift );
+		if ( !-e $modDir ) {
+			$self->_setError("file does '$modDir' not exist!");
+			return;
+		}
 	}
-
-	#print "modDir:$modDir\n";
 	return $modDir;
 }
 
