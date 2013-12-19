@@ -5,7 +5,6 @@ use warnings;
 
 package MPX::Tools;
 
-#use File::ShareDir ':ALL'; #todo
 use Moose;
 use namespace::autoclean;
 use Carp qw(croak carp confess);
@@ -14,7 +13,8 @@ use XML::LiBXML;
 use XML::LibXSLT;
 use XML::LibXML::XPathContext;
 
-#use File::Spec;
+use File::ShareDir qw(dist_dir dist_file);
+use File::Spec;
 use Path::Class;
 
 #use Cwd qw(realpath);
@@ -122,10 +122,7 @@ sub validateMPX {
 		return;
 	}
 
-	my $mpxXsd = $self->share( 'share', 'mpx.xsd' );
-	if ( $self->error ) {
-		die $self->error;
-	}
+	my $mpxXsd = $self->share('mpx.xsd') || die $self->error;
 
 	my $xmlschema = XML::LibXML::Schema->new( location => $mpxXsd );
 
@@ -149,7 +146,7 @@ For use in 'transf.pl -l'.
 
 sub xslList {
 	my $self = shift or croak "Need myself!";
-	my $xslDir = $self->share('xsl');
+	my $xslDir = $self->share() || die $self->error;;
 
 	if ( !-d $xslDir ) {
 		$self->_setError("MPX's xsl directory not found at $xslDir");
@@ -188,8 +185,9 @@ sub _loadXSL {
 		return;
 	}
 
-	$xslFN = $self->share( $xslFN ) || die "No xsl file";
+	$xslFN = $self->share($xslFN) || die "Shared xsl '$xslFN' not found!";
 
+	#todo remove this test
 	if ( !-f $xslFN ) {
 		$self->_setError("xsl not found at $xslFN");
 		return;
@@ -232,53 +230,54 @@ On failure, _modDir sets error and returns nothing.
 =cut
 
 sub _modDir {
-	print "_modDir\n";
 	my $self = shift or croak "Need myself!";
 
+	#it's likely that _modDir always returns something
 	my $modDir = file(__FILE__)->parent->parent->parent;
-
-	if ( !$modDir ) {
-
-		#very unlikely, but conceivable
-		$self->_setError('NO modDir!');
-		return;
-	}
-
-	if ( !-d $modDir ) {
-		$self->_setError("modDir does not exist! ($modDir)");
-		return;
-	}
 
 	if (@_) {
 		$modDir = file( $modDir, @_ );
 
-		if ( !-e $modDir ) {
-			$self->_setError("file does '$modDir' not exist!");
-			return;
-		}
 	}
 	return $modDir;
 }
 
 =method my $path=$self->share(file);
 
-my $absolute_path=$self->share();
-my $absolute_path_to_file=$self->share('local','path','relative','to','modDir');
+Similar to File::ShareDir in that it returns working paths to files or 
+shareDir, but works before install  
+
+my $path=$self->share() || die "Share not found!";
+my $path_to_file=$self->share('local','path','relative','to','modDir');
 
 should work before installed and after make install.
+
+The problem with this kind of stuff is that it is untestable with the
+usual kind of test setup.
 
 =cut
 
 sub share {
 	my $self = shift or croak "Need myself!";
-	use File::ShareDir qw(dist_dir dist_file);
 
+	my $share_dir='share';
 	my $path;
 	if ( !@_ ) {
-		$path = $self->_modDir() || dist_dir();
+		eval { $path = dist_dir('MPX') };
+		$path = $self->_modDir($share_dir) if ( !$path );
+		if ( !-d $path ) {
+			$self->_setError("Share dir '$share_dir' not found!");
+			return;
+		}
 	}
 	else {
-		$path = $self->_modDir( 'share', @_ ) || dist_file( 'MPX', @_ );
+		eval { $path = dist_file( 'MPX', @_ ) };
+		$path = $self->_modDir($share_dir, @_) if ( !$path );
+		if ( !-f $path ) {    #could also be link I guess
+			my $file=file(@_);
+			$self->_setError("Shared file '$file' not found!");
+			return;
+		}
 	}
 	return $path;
 }

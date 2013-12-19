@@ -98,7 +98,7 @@ sub transform {
 
 Prints a little statistic on the numbers of records in input.mpx.
 
-(Internally $modDir/xsl/stat.xsl is called.)
+(Internally $modDir/share/stat.xsl is called.)
 
 On default input document is validated. Disable with -V.
 
@@ -135,11 +135,5 @@ sub validate {
 	val( 'file', $tb, $input ); #dies if doesn't validate
 	#return 0; #success (shell exit code for success is 0)
 }
-
-
-####
-#### INTERNAL: these should go MPX::CLI
-####
-
 
 1;
