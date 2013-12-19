@@ -1,3 +1,4 @@
+#ABSTRACT: Commands for mpx
 package MPX::Commands;
 
 use strict;
@@ -51,7 +52,7 @@ sub fix {
 	verbose "Result written";
 }
 
-=func my $result=transform ($xslFile,$mpxFile);
+=func my $result=transform ($xslFile, $mpxFile);
 
 Expects an xsl file name in the module's xsl directory (not absolute or 
 relative path), and a path to mpx file. Returns the result of the 

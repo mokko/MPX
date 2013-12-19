@@ -89,6 +89,7 @@ sub verbose {
     print ": $msg\n" if $MPX::Commands::opts{v};
 }
 
+#aborts with error msg if ?
 sub getParam {
     my $name = shift || 'parameter';
     if ( !$ARGV[0] ) {
@@ -96,6 +97,9 @@ sub getParam {
     }
     return shift @ARGV;
 }
+
+
+#check if a single file exists
 
 sub getParamFile {
     my $name = shift || 'file';

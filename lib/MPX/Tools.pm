@@ -122,7 +122,7 @@ sub validateMPX {
 		return;
 	}
 
-	my $mpxXsd = $self->_modDir( 'share', 'mpx.xsd' );
+	my $mpxXsd = $self->share( 'share', 'mpx.xsd' );
 	if ( $self->error ) {
 		die $self->error;
 	}
@@ -148,8 +148,8 @@ For use in 'transf.pl -l'.
 =cut
 
 sub xslList {
-	my $self   = shift or croak "Need myself!";
-	my $xslDir = $self->_modDir('xsl');
+	my $self = shift or croak "Need myself!";
+	my $xslDir = $self->share('xsl');
 
 	if ( !-d $xslDir ) {
 		$self->_setError("MPX's xsl directory not found at $xslDir");
@@ -180,7 +180,7 @@ leave it in for the moment.
 =cut
 
 sub _loadXSL {
-	my $self  = shift or croak "Need myself!";
+	my $self = shift or croak "Need myself!";
 	my $xslFN = _STRING(shift);
 
 	if ( !$xslFN ) {
@@ -188,7 +188,7 @@ sub _loadXSL {
 		return;
 	}
 
-	$xslFN = $self->_modDir( 'share', $xslFN ) || die "No xsl file";
+	$xslFN = $self->share( $xslFN ) || die "No xsl file";
 
 	if ( !-f $xslFN ) {
 		$self->_setError("xsl not found at $xslFN");
@@ -232,10 +232,13 @@ On failure, _modDir sets error and returns nothing.
 =cut
 
 sub _modDir {
-	my $self   = shift or croak "Need myself!";
+	print "_modDir\n";
+	my $self = shift or croak "Need myself!";
+
 	my $modDir = file(__FILE__)->parent->parent->parent;
 
 	if ( !$modDir ) {
+
 		#very unlikely, but conceivable
 		$self->_setError('NO modDir!');
 		return;
@@ -255,6 +258,29 @@ sub _modDir {
 		}
 	}
 	return $modDir;
+}
+
+=method my $path=$self->share(file);
+
+my $absolute_path=$self->share();
+my $absolute_path_to_file=$self->share('local','path','relative','to','modDir');
+
+should work before installed and after make install.
+
+=cut
+
+sub share {
+	my $self = shift or croak "Need myself!";
+	use File::ShareDir qw(dist_dir dist_file);
+
+	my $path;
+	if ( !@_ ) {
+		$path = $self->_modDir() || dist_dir();
+	}
+	else {
+		$path = $self->_modDir( 'share', @_ ) || dist_file( 'MPX', @_ );
+	}
+	return $path;
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -5,7 +5,8 @@ use warnings;
 
 use FindBin;
 use Cwd qw(realpath);
-use File::Spec;
+#use File::Spec;
+use Path::Class;
 
 use base 'Exporter';
 
@@ -26,14 +27,11 @@ If $signal is 'config' and $attach is added, $attach is ignored.
 =cut
 
 sub testEnviron {
-	my $dir    = File::Spec->catfile( $FindBin::Bin, '..', 't', 'cases' );
-	my $return=$dir;
+	my $dir    = dir ( file($FindBin::Bin)->parent, 't', 'cases' );
 	
 	if (@_) {
-		foreach my $item (@_) {
-			$return=File::Spec->catfile($return, $item);
-		}
+		$dir = file( $dir, @_ );
 	}
-	return $return;
+	return $dir;
 }
 1;
